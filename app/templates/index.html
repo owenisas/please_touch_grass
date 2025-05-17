@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Touch Grass Index</title>
+</head>
+<body>
+    {% if user_info %}
+        <h1>Welcome, {{ user_info.name }}!</h1>
+        <p>Your Reddit ID: {{ user_info.id }}</p>
+        <!-- Future: Display Touch Grass Index here -->
+    {% else %}
+        <a href="{{ auth_url }}">Login with Reddit</a>
+    {% endif %}
+</body>
+</html>

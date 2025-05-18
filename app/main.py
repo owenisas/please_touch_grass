@@ -315,7 +315,7 @@ async def callback(request: Request, code: str, state: str):
             )
 
         # Redirect back to frontend with the data and session
-        frontend_url = f"{domain_name}/reddit-callback"
+        frontend_url = "http://localhost:8080/reddit-callback"
         query_params = {
             "success": "true",
             "username": username,

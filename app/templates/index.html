@@ -2,14 +2,49 @@
 <html>
 <head>
     <title>Touch Grass Index</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            padding: 50px;
+            background-color: #f3f4f6;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            color: #1f2937;
+            margin-bottom: 20px;
+        }
+        p {
+            color: #4b5563;
+            margin-bottom: 30px;
+        }
+        .button {
+            display: inline-block;
+            background-color: #FF4500;
+            color: white;
+            padding: 12px 24px;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: background-color 0.2s;
+        }
+        .button:hover {
+            background-color: #E03E00;
+        }
+    </style>
 </head>
 <body>
-    {% if user_info %}
-        <h1>Welcome, {{ user_info.name }}!</h1>
-        <p>Your Reddit ID: {{ user_info.id }}</p>
-        <!-- Future: Display Touch Grass Index here -->
-    {% else %}
-        <a href="{{ auth_url }}">Login with Reddit</a>
-    {% endif %}
+    <div class="container">
+        <h1>Welcome to Touch Grass Index</h1>
+        <p>Connect your Reddit account to see how much you need to touch grass.</p>
+        <a href="{{ auth_url }}" class="button">Connect with Reddit</a>
+    </div>
 </body>
 </html>

@@ -13,7 +13,7 @@ from datetime import datetime, timedelta
 
 # Store state tokens temporarily (in production, use a proper session store)
 state_store = {}
-
+domain_name = os.getenv("DOMAIN")
 # Store user sessions (in production, use a proper database)
 user_sessions: Dict[str, dict] = {}
 reddit = reddit.RedditAuth()
@@ -256,7 +256,7 @@ async def callback(request: Request, code: str, state: str):
     if state not in state_store:
         print(f"Invalid state parameter. Received: {state}, Stored states: {list(state_store.keys())}")
         return RedirectResponse(
-            url=f"http://localhost:8080/?error=invalid_state",
+            url=f"{domain_name}/?error=invalid_state",
             status_code=302
         )
 
@@ -269,7 +269,7 @@ async def callback(request: Request, code: str, state: str):
         if not token_data or "access_token" not in token_data:
             print(f"Token exchange failed. Response: {token_data}")
             return RedirectResponse(
-                url=f"http://localhost:8080/?error=token_exchange_failed",
+                url=f"{domain_name}/?error=token_exchange_failed",
                 status_code=302
             )
 
@@ -281,7 +281,7 @@ async def callback(request: Request, code: str, state: str):
         if not user_info or "name" not in user_info:
             print(f"Failed to get user info. Response: {user_info}")
             return RedirectResponse(
-                url=f"http://localhost:8080/?error=user_info_failed",
+                url=f"{domain_name}/?error=user_info_failed",
                 status_code=302
             )
 
@@ -310,12 +310,12 @@ async def callback(request: Request, code: str, state: str):
         except Exception as e:
             print(f"Error getting user data: {str(e)}")
             return RedirectResponse(
-                url=f"http://localhost:8080/?error=data_fetch_failed&details={str(e)}",
+                url=f"{domain_name}/?error=data_fetch_failed&details={str(e)}",
                 status_code=302
             )
 
         # Redirect back to frontend with the data and session
-        frontend_url = "http://localhost:8080/reddit-callback"
+        frontend_url = f"{domain_name}/reddit-callback"
         query_params = {
             "success": "true",
             "username": username,
@@ -331,7 +331,7 @@ async def callback(request: Request, code: str, state: str):
     except Exception as e:
         print(f"Error in callback: {str(e)}")
         return RedirectResponse(
-            url=f"http://localhost:8080/?error=auth_failed&details={str(e)}",
+            url=f"{domain_name}/?error=auth_failed&details={str(e)}",
             status_code=302
         )
 
